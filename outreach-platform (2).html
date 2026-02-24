@@ -1,0 +1,1938 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ReachBase — Outreach Platform</title>
+<link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAABCGlDQ1BJQ0MgUHJvZmlsZQAAeJxjYGA8wQAELAYMDLl5JUVB7k4KEZFRCuwPGBiBEAwSk4sLGHADoKpv1yBqL+viUYcLcKakFicD6Q9ArFIEtBxopAiQLZIOYWuA2EkQtg2IXV5SUAJkB4DYRSFBzkB2CpCtkY7ETkJiJxcUgdT3ANk2uTmlyQh3M/Ck5oUGA2kOIJZhKGYIYnBncAL5H6IkfxEDg8VXBgbmCQixpJkMDNtbGRgkbiHEVBYwMPC3MDBsO48QQ4RJQWJRIliIBYiZ0tIYGD4tZ2DgjWRgEL7AwMAVDQsIHG5TALvNnSEfCNMZchhSgSKeDHkMyQx6QJYRgwGDIYMZAKbWPz9HbOBQAAADfklEQVR4nO2WT2wbVRDG97398/x212s5LiZB1OSYCyAVKYpdmhyAS0oiUZWbRQ8EFUENShWVA+25HCIwEUgEhCMRrkV1qtByiZRD8QESRUCU1EY5RJaARNje9a5t1u+96WGlqFWr2K5yQtnrauaned/MN4N8H778Yu6br7+KRqOcc+moP3zkGY8Bx4BjwP8QoBxtOowxQggAQAjoFYAQQghJkgQAAPDoXwDwXFcIgTGmlCKMAaBbAMbY933GGJIkVdMURRFCPJidc44xfvnMmf5nBvb29tZ++dX3fVVVuwV4ntff3x9/Os65KJfLdq2m63pQB0JICAFIuvLRlWQyyTjHsvzHb79/cv2653ldARhj6XR6fHycGjoAVCvV7xcXV1dXKaXBg7iu+96l95OpVKVSCXinXjqVTCbz+XyHLsIYNxqN0dHRty5cUInm+77fbsdOxC5lMoODg61WS1FV27bPvn52YmKiWq0qioIx1jSt8m+lVCoRQjoAEEKC85OJBBOs9V9LkiQkSa7rhmjoqXhcAvBc9/kXX3h7aqrRaGCMJUkCAF3Xc7nc9vY2pbQDQAhBCPn57l3HdmKxmKZphJB4PF4sFovFexJCfX1909PTsixzzgOpLcu6tXRreXk5HA5zzjtoAAAaIX+WStc+vjo5Ofls4iTnfGtra+lm3nVcLOPMhx8MDAzU63VFURhjpmlubGzkct+ahhG0QGeRAYDq+s7OzuzsrE6pAGg2m4Zh+G1/6p2p4eHhWq0WVEAI2d/fz2azggtVUYM+7soqhBChUMg0TQkhjHE0GvU875XXXn3j3DnbtmVZBoBAgM+z2X/++jsUCh1MSbdeJIQIYmRZdhxnaGjo3YsXm81mMNsChGmYCwsLa2trVjj84PnTm9khhHzfj0Qi05cva4QcCBuxIj/dubN0Mx+xIuzh46pnN2WMZTKZxHOJZrMZPL1hGJubm/Pz85TSRz2qBwDGuF6vp9Pp1OnTjuPIshw0sV2rZT/9rN1uB2I8ISAY6bGxsfNvnnfqzkEujPHc3Fy5XA5s4zGB3VfAGEulUpqmtdttzrkQImJZi98tFgqF8MPCPiFAVdWVlRXP9U70xSzLisViP96+/cONG1bYOuRq7taug1FYX1+fmZkZGRkxwmapWCwUCoSQwwN72GgAQCnd3d0tlUrBdjMMI1hkh0TdB2B5w92oiYd1AAAAAElFTkSuQmCC">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Fraunces:wght@700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#f4f5f7;--surface:#fff;--surface2:#f9fafb;--border:#e5e7eb;
+  --accent:#2563eb;--accent-light:#eff6ff;
+  --sms:#ea580c;--sms-light:#fff7ed;
+  --success:#16a34a;--success-light:#f0fdf4;
+  --purple:#7c3aed;--purple-light:#f5f3ff;
+  --text:#111827;--text2:#374151;--muted:#9ca3af;--danger:#dc2626;
+  --web:#374151;--web-light:#f3f4f6;
+  --photo:#374151;--photo-light:#f3f4f6;
+  --social:#374151;--social-light:#f3f4f6;
+  --all:#374151;--all-light:#f3f4f6;
+}
+body{background:var(--bg);color:var(--text);font-family:'Montserrat',sans-serif;font-size:14px;line-height:1.5;min-height:100vh;display:flex;}
+
+/* LOCK */
+#lockscreen{position:fixed;inset:0;background:#f4f5f7;z-index:9999;display:flex;align-items:center;justify-content:center;}
+#lockscreen.hidden{display:none;}
+.lock-box{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:40px;width:360px;box-shadow:0 20px 60px rgba(0,0,0,.08);text-align:center;}
+.lock-logo{font-family:'Fraunces',serif;font-size:24px;font-weight:800;margin-bottom:6px;}
+.lock-logo span{color:#2563eb;}
+.lock-sub{font-size:13px;color:#9ca3af;margin-bottom:28px;}
+.lock-label{font-size:12px;font-weight:700;color:#374151;text-align:left;margin-bottom:6px;display:block;}
+.lock-input{width:100%;padding:11px 14px;border:1px solid #e5e7eb;border-radius:8px;font-family:'Montserrat',sans-serif;font-size:14px;outline:none;margin-bottom:12px;transition:border-color .12s;color:#111827;}
+.lock-input:focus{border-color:#2563eb;}
+.lock-btn{width:100%;padding:11px;background:#2563eb;color:#fff;border:none;border-radius:8px;font-family:'Montserrat',sans-serif;font-size:14px;font-weight:700;cursor:pointer;}
+.lock-btn:hover{background:#1d4ed8;}
+.lock-error{font-size:12px;color:#dc2626;margin-top:8px;display:none;}
+
+/* SIDEBAR */
+.sidebar{width:230px;min-height:100vh;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;left:0;top:0;bottom:0;z-index:50;}
+.logo{padding:22px 20px;border-bottom:1px solid var(--border);}
+.logo-mark{font-family:'Fraunces',serif;font-size:22px;font-weight:800;color:var(--text);line-height:1;}
+.logo-mark span{color:var(--accent);}
+.logo-sub{font-size:11px;color:var(--text2);margin-top:3px;font-weight:500;}
+.nav{flex:1;padding:12px;display:flex;flex-direction:column;gap:2px;overflow-y:auto;}
+.nav-section{font-size:10px;font-weight:700;color:#6b7280;text-transform:uppercase;padding:10px 8px 4px;}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;cursor:pointer;font-size:13.5px;font-weight:500;color:var(--text2);transition:all .12s;}
+.nav-item:hover{background:var(--bg);}
+.nav-item.active{background:var(--accent-light);color:var(--accent);font-weight:600;}
+.nav-icon{font-size:15px;width:20px;text-align:center;flex-shrink:0;}
+.nav-badge{margin-left:auto;font-size:11px;font-weight:700;background:var(--accent);color:#fff;padding:1px 7px;border-radius:20px;}
+.sidebar-bottom{padding:14px;border-top:1px solid var(--border);}
+.user-card{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;cursor:pointer;}
+.user-card:hover{background:var(--bg);}
+.avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--purple));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0;}
+.user-name{font-size:13px;font-weight:600;}
+.user-role{font-size:11px;color:var(--text2);}
+
+/* MAIN */
+.main{margin-left:230px;flex:1;min-height:100vh;display:flex;flex-direction:column;}
+.topbar{background:var(--surface);border-bottom:1px solid var(--border);padding:14px 28px;display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:40;}
+.topbar-title{font-family:'Fraunces',serif;font-size:20px;font-weight:700;}
+.topbar-actions{margin-left:auto;display:flex;align-items:center;gap:10px;}
+.search{display:flex;align-items:center;gap:8px;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:7px 12px;}
+.search input{background:none;border:none;outline:none;font-family:'Montserrat',sans-serif;font-size:13px;color:var(--text);width:180px;}
+.search input::placeholder{color:var(--muted);}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .12s;white-space:nowrap;}
+.btn-primary{background:var(--accent);color:#fff;}
+.btn-primary:hover{background:#1d4ed8;}
+.btn-sms{background:var(--sms);color:#fff;}
+.btn-sms:hover{background:#c2410c;}
+.btn-success{background:var(--success);color:#fff;}
+.btn-success:hover{background:#15803d;}
+.btn-outline{background:#fff;color:var(--text2);border:1px solid var(--border);}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent);}
+.btn-sm{padding:5px 11px;font-size:12px;}
+.btn-danger{background:#fff;color:var(--danger);border:1px solid var(--danger);}
+.btn-danger:hover{background:var(--danger);color:#fff;}
+.btn:disabled{opacity:.4;cursor:not-allowed;pointer-events:none;}
+
+.content{padding:26px 28px;flex:1;}
+.page{display:none;}
+.page.active{display:block;}
+
+/* PANELS */
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:18px;}
+.panel-head{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;}
+.panel-title{font-size:14px;font-weight:700;color:var(--text);}
+.panel-actions{margin-left:auto;display:flex;gap:8px;}
+
+/* STATS */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px;}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px;}
+.stat-label{font-size:12px;font-weight:600;color:var(--muted);margin-bottom:8px;}
+.stat-value{font-family:'Fraunces',serif;font-size:30px;font-weight:700;line-height:1;color:var(--text);}
+.stat-delta{font-size:12px;font-weight:500;color:var(--text2);margin-top:6px;}
+
+/* TAGS */
+.tag{display:inline-flex;align-items:center;font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;}
+.tag-email{background:var(--accent-light);color:var(--accent);}
+.tag-sms{background:var(--sms-light);color:var(--sms);}
+.tag-sent{background:var(--bg);color:var(--muted);border:1px solid var(--border);}
+.tag-replied{background:var(--accent-light);color:var(--accent);}
+.tag-booked{background:var(--success-light);color:var(--success);}
+.tag-pending{background:var(--purple-light);color:var(--purple);}
+.tag-web{background:var(--web-light);color:var(--web);}
+.tag-photo{background:var(--photo-light);color:var(--photo);}
+.tag-social{background:var(--social-light);color:var(--social);}
+.tag-all{background:var(--all-light);color:var(--all);}
+
+/* TABLE */
+.table-wrap{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;}
+thead{background:var(--surface2);}
+th{padding:11px 14px;text-align:left;font-size:11px;font-weight:700;color:#4b5563;text-transform:uppercase;border-bottom:1px solid var(--border);}
+td{padding:11px 14px;font-size:13px;color:var(--text2);border-bottom:1px solid var(--border);vertical-align:middle;}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:var(--surface2);}
+.lead-name{font-weight:600;color:var(--text);}
+
+/* TABS */
+.tabs{display:flex;border-bottom:1px solid var(--border);padding:0 20px;}
+.tab{padding:11px 16px;font-size:13px;font-weight:500;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .12s;}
+.tab:hover{color:var(--text);}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent);font-weight:600;}
+
+/* MODAL */
+.overlay{display:none;position:fixed;inset:0;background:rgba(17,24,39,.45);z-index:200;align-items:center;justify-content:center;backdrop-filter:blur(3px);}
+.overlay.open{display:flex;}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:16px;width:560px;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.12);animation:pop .18s ease;}
+.modal-lg{width:680px;}
+@keyframes pop{from{transform:scale(.96) translateY(8px);opacity:0;}to{transform:scale(1) translateY(0);opacity:1;}}
+.modal-head{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;}
+.modal-title{font-size:16px;font-weight:700;}
+.modal-close{margin-left:auto;background:none;border:none;font-size:22px;color:var(--muted);cursor:pointer;padding:0 4px;border-radius:6px;line-height:1;}
+.modal-close:hover{background:var(--bg);color:var(--text);}
+.modal-body{padding:22px 24px;display:flex;flex-direction:column;gap:16px;}
+.modal-foot{padding:16px 24px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:10px;}
+.field{display:flex;flex-direction:column;gap:6px;}
+label{font-size:12px;font-weight:700;color:var(--text2);}
+input,textarea,select{font-family:'Montserrat',sans-serif;font-size:13px;color:var(--text);background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:9px 12px;outline:none;transition:border-color .12s;width:100%;}
+input:focus,textarea:focus,select:focus{border-color:var(--accent);}
+textarea{resize:vertical;min-height:100px;}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+
+/* PROMPT CARDS */
+.prompt-card{background:var(--surface2);border:2px solid var(--border);border-radius:12px;padding:18px;cursor:pointer;transition:all .15s;}
+.prompt-card:hover{border-color:var(--accent);}
+.prompt-card.selected{border-color:var(--accent);background:var(--accent-light);}
+.prompt-card-title{font-size:13px;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:8px;}
+.prompt-card-preview{font-size:12px;color:var(--muted);line-height:1.6;}
+
+/* OUTREACH OVERVIEW */
+.overview-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin-bottom:12px;}
+.overview-top{display:flex;align-items:flex-start;gap:16px;margin-bottom:14px;}
+.overview-info{flex:1;}
+.overview-name{font-size:15px;font-weight:700;}
+.overview-meta{font-size:12px;color:var(--muted);margin-top:2px;}
+.overview-actions{display:flex;gap:8px;flex-shrink:0;}
+.method-btn{display:flex;align-items:center;gap:6px;padding:7px 14px;border-radius:8px;border:1px solid var(--border);background:#fff;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all .12s;color:var(--text2);}
+.method-btn:hover:not(:disabled){border-color:var(--accent);color:var(--accent);}
+.method-btn.active-email{background:var(--accent-light);border-color:var(--accent);color:var(--accent);}
+.method-btn.active-sms{background:var(--sms-light);border-color:var(--sms);color:var(--sms);}
+.method-btn:disabled{opacity:.35;cursor:not-allowed;}
+.overview-prompt-wrap{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px 14px;}
+.overview-prompt-label{font-size:11px;font-weight:700;color:var(--muted);margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;}
+.overview-prompt-text{font-size:13px;color:var(--text2);line-height:1.7;white-space:pre-wrap;outline:none;min-height:60px;}
+.overview-prompt-text:focus{color:var(--text);}
+
+/* SERVICE GOAL SELECT */
+.goal-select{font-size:12px;padding:4px 8px;border-radius:6px;border:1px solid var(--border);background:#fff;cursor:pointer;font-family:'Montserrat',sans-serif;font-weight:600;}
+
+/* DROP ZONE */
+.drop-zone{border:2px dashed var(--border);border-radius:12px;padding:36px;text-align:center;cursor:pointer;transition:all .12s;}
+.drop-zone:hover{border-color:var(--accent);background:var(--accent-light);}
+
+/* CHANNEL BTNS */
+.channel-btns{display:flex;gap:10px;}
+.ch-btn{flex:1;padding:10px;border-radius:8px;border:1px solid var(--border);background:var(--surface);font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .12s;text-align:center;color:var(--text2);}
+.ch-btn.sel-email{background:var(--accent-light);border-color:var(--accent);color:var(--accent);}
+.ch-btn.sel-sms{background:var(--sms-light);border-color:var(--sms);color:var(--sms);}
+.ch-btn.sel-both{background:var(--purple-light);border-color:var(--purple);color:var(--purple);}
+
+/* CAMPAIGN ROW */
+.campaign-list{padding:8px;}
+.campaign-row{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:8px;cursor:pointer;transition:background .1s;}
+.campaign-row:hover{background:var(--bg);}
+.camp-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.camp-icon.email{background:var(--accent-light);}
+.camp-icon.sms{background:var(--sms-light);}
+.camp-icon.both{background:var(--purple-light);}
+.camp-name{font-size:13px;font-weight:600;}
+.camp-meta{font-size:12px;color:var(--text2);margin-top:1px;}
+.camp-stats{margin-left:auto;display:flex;gap:16px;flex-shrink:0;}
+.cs{text-align:right;}
+.cs-val{font-size:13px;font-weight:700;}
+.cs-label{font-size:11px;color:var(--muted);}
+.status-pip{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.pip-active{background:var(--success);box-shadow:0 0 0 2px var(--success-light);}
+.pip-paused{background:var(--muted);}
+.pip-draft{background:var(--sms);}
+.pip-scheduled{background:var(--purple);box-shadow:0 0 0 2px var(--purple-light);}
+
+/* INBOX */
+.inbox-list{padding:4px 8px;}
+.inbox-row{display:flex;gap:12px;padding:12px;border-radius:8px;cursor:pointer;transition:background .1s;border-bottom:1px solid var(--border);}
+.inbox-row:last-child{border-bottom:none;}
+.inbox-row:hover{background:var(--bg);}
+.inbox-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:5px;}
+.inbox-dot.hidden{opacity:0;}
+.inbox-body{flex:1;min-width:0;}
+.inbox-top{display:flex;align-items:center;gap:8px;margin-bottom:3px;}
+.inbox-name{font-size:13px;font-weight:600;}
+.inbox-time{font-size:11px;color:var(--muted);margin-left:auto;flex-shrink:0;}
+.inbox-preview{font-size:12px;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+
+/* EMPTY STATE */
+.empty-state{padding:48px;text-align:center;color:var(--muted);}
+.empty-state-icon{font-size:32px;margin-bottom:10px;}
+.empty-state-title{font-size:14px;font-weight:700;color:var(--text2);}
+.empty-state-sub{font-size:12px;margin-top:4px;}
+
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:10px;}
+</style>
+</head>
+<body>
+
+<!-- LOCK SCREEN -->
+<div id="lockscreen">
+  <div class="lock-box">
+    <div class="lock-logo">Reach<span>Base</span></div>
+    <div class="lock-sub">Internal Outreach Platform</div>
+    <label class="lock-label">Password</label>
+    <input class="lock-input" type="password" id="lockInput" placeholder="Enter password..." onkeydown="if(event.key==='Enter')checkPass()">
+    <button class="lock-btn" onclick="checkPass()">Enter</button>
+    <div class="lock-error" id="lockError">Incorrect password. Try again.</div>
+  </div>
+</div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="logo">
+    <div class="logo-mark">Reach<span>Base</span></div>
+    <div class="logo-sub">Outreach Platform</div>
+  </div>
+  <nav class="nav">
+    <div class="nav-section">Main</div>
+    <div class="nav-item active" onclick="go('dashboard',this)"><span class="nav-icon">⊞</span> Dashboard</div>
+    <div class="nav-item" onclick="go('leads',this)"><span class="nav-icon">◎</span> Leads <span class="nav-badge" id="leadCountBadge">0</span></div>
+    <div class="nav-section">Outreach</div>
+    <div class="nav-item" onclick="go('outreach',this)"><span class="nav-icon">🎯</span> Outreach Overview</div>
+    <div class="nav-item" onclick="go('prompts',this)"><span class="nav-icon">✏</span> Prompts</div>
+    <div class="nav-item" onclick="go('campaigns',this)"><span class="nav-icon">⚡</span> Campaigns</div>
+    <div class="nav-item" onclick="go('inbox',this)"><span class="nav-icon">✉</span> Inbox <span class="nav-badge" id="inboxBadge">0</span></div>
+    <div class="nav-item" onclick="go('contacted',this)"><span class="nav-icon">✅</span> Contacted <span class="nav-badge" id="contactedBadge" style="background:var(--success)">0</span></div>
+    <div class="nav-section">Account</div>
+    <div class="nav-item" onclick="go('ai',this)"><span class="nav-icon">🤖</span> AI Assistant</div>
+    <div class="nav-item" onclick="go('settings',this)"><span class="nav-icon">⚙</span> Settings</div>
+  </nav>
+  <div class="sidebar-bottom">
+    <div class="user-card">
+      <div class="avatar">RB</div>
+      <div><div class="user-name">My Account</div><div class="user-role">Admin</div></div>
+    </div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<div class="main">
+
+<!-- DASHBOARD -->
+<div id="page-dashboard" class="page active">
+  <div class="topbar">
+    <div class="topbar-title">Dashboard</div>
+    <div class="topbar-actions">
+      <button class="btn btn-outline" onclick="open_modal('addLead')">+ Add Lead</button>
+      <button class="btn btn-primary" onclick="go('outreach',document.querySelectorAll('.nav-item')[3])">🎯 Start Outreach</button>
+    </div>
+  </div>
+  <div class="content">
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-label">Total Leads</div><div class="stat-value" id="stat-leads">0</div><div class="stat-delta">in your pipeline</div></div>
+      <div class="stat-card"><div class="stat-label">Ready to Reach</div><div class="stat-value" id="stat-ready">0</div><div class="stat-delta">have email or phone</div></div>
+      <div class="stat-card"><div class="stat-label">Contacted</div><div class="stat-value" id="stat-contacted">0</div><div class="stat-delta">sent outreach</div></div>
+      <div class="stat-card"><div class="stat-label">Replied</div><div class="stat-value" id="stat-replied">0</div><div class="stat-delta">responded</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+      <div class="panel">
+        <div class="panel-head"><div class="panel-title">Leads by Service Goal</div></div>
+        <div style="padding:16px 20px;display:flex;flex-direction:column;gap:12px" id="goalBreakdown">
+          <div class="empty-state"><div class="empty-state-icon">◎</div><div class="empty-state-title">No leads yet</div><div class="empty-state-sub">Import leads to see breakdown</div></div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><div class="panel-title">Recent Activity</div></div>
+        <div id="recentActivity" class="inbox-list">
+          <div class="empty-state"><div class="empty-state-icon">⚡</div><div class="empty-state-title">No activity yet</div><div class="empty-state-sub">Activity will appear after you send outreach</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LEADS -->
+<div id="page-leads" class="page">
+  <div class="topbar">
+    <div class="topbar-title">Leads</div>
+    <div class="topbar-actions">
+      <div class="search"><span style="color:var(--muted)">⌕</span><input type="text" id="leadSearch" placeholder="Search leads..." oninput="renderLeads()"></div>
+      <button class="btn btn-outline" onclick="open_modal('importLeads')">↑ Import CSV</button>
+      <button class="btn btn-primary" onclick="open_modal('addLead')">+ Add Lead</button>
+    </div>
+  </div>
+  <div class="content">
+    <div class="panel">
+      <div class="table-wrap">
+        <table>
+          <thead><tr>
+            <th>Business</th><th>Contact</th><th>Email</th><th>Phone</th>
+            <th>Website</th><th>Location</th><th>Service Goal</th><th>Status</th><th>Actions</th>
+          </tr></thead>
+          <tbody id="leadsTable"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OUTREACH OVERVIEW -->
+<div id="page-outreach" class="page">
+  <div class="topbar">
+    <div class="topbar-title">Outreach Overview</div>
+    <div class="topbar-actions">
+      <select id="outreachFilter" onchange="renderOutreach()" style="padding:8px 12px;border-radius:8px;border:1px solid var(--border);font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;background:#fff;cursor:pointer">
+        <option value="all">All Leads</option>
+        <option value="pending">Pending Only</option>
+        <option value="web">Website Work</option>
+        <option value="photo">Photo & Video</option>
+        <option value="social">Social Media</option>
+        <option value="all-services">All Services</option>
+      </select>
+    </div>
+  </div>
+  <!-- BULK ACTION BAR -->
+  <div id="bulkBar" style="display:none;position:sticky;top:57px;z-index:30;background:#111827;color:#fff;border-bottom:2px solid #374151;flex-direction:column;gap:0">
+
+    <!-- TOP ROW: controls -->
+    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:12px 28px;border-bottom:1px solid #374151">
+      <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;font-weight:700;color:#fff;user-select:none">
+        <input type="checkbox" id="selectAllOutreach" style="width:15px;height:15px;accent-color:#2563eb;cursor:pointer" onchange="toggleSelectAll(this.checked)">
+        Select All
+      </label>
+      <span id="bulkCount" style="font-size:13px;font-weight:600;color:#9ca3af">0 in bulk queue</span>
+      <div style="width:1px;height:20px;background:#374151"></div>
+      <select id="bulkPromptPick" onchange="loadBulkPrompt(this.value)" style="padding:6px 10px;border-radius:8px;border:1px solid #374151;background:#1f2937;color:#fff;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:600">
+        <option value="">— Load prompt template —</option>
+        <option value="web">Website Work</option>
+        <option value="photo">Photo & Video</option>
+        <option value="social">Social Media</option>
+        <option value="all-services">All Services</option>
+      </select>
+      <button class="btn btn-sm" style="background:#2563eb;color:#fff;border:none" onclick="applyBulkPrompt()">Apply to Queue</button>
+      <button class="btn btn-sm" style="background:#16a34a;color:#fff;border:none" onclick="sendBulkEmail()">✉ Send All Now</button>
+      <button class="btn btn-sm" style="background:transparent;color:#9ca3af;border:1px solid #374151;margin-left:auto" onclick="toggleBulkDetails()" id="bulkToggleBtn">▾ Show Queue</button>
+      <button class="btn btn-sm" style="background:transparent;color:#ef4444;border:1px solid #374151" onclick="clearSelection()">✕ Clear All</button>
+    </div>
+
+    <!-- SELECTED LEADS LIST (collapsible) -->
+    <div id="bulkLeadsList" style="display:none;padding:10px 28px 14px;max-height:160px;overflow-y:auto">
+      <div id="bulkLeadsInner" style="display:flex;flex-wrap:wrap;gap:8px"></div>
+    </div>
+
+    <!-- PROMPT EDITOR -->
+    <div id="bulkEditWrap" style="display:none;flex-direction:column;gap:8px;padding:12px 28px;border-top:1px solid #374151">
+      <input type="text" id="bulkSubject" placeholder="Subject line for all selected leads..."
+        style="width:100%;padding:8px 12px;border-radius:8px;border:1px solid #374151;background:#1f2937;color:#fff;font-family:'Montserrat',sans-serif;font-size:13px;outline:none">
+      <textarea id="bulkBody" placeholder="Message body — edit before sending..."
+        style="width:100%;padding:10px 12px;border-radius:8px;border:1px solid #374151;background:#1f2937;color:#fff;font-family:'Montserrat',sans-serif;font-size:13px;outline:none;resize:vertical;min-height:80px;line-height:1.6"></textarea>
+      <div style="font-size:11px;color:#d1d5db">Use {{first_name}} and {{business}} — each lead gets their own personalized version.</div>
+    </div>
+  </div>
+  <div class="content" id="outreachContent">
+    <div class="empty-state"><div class="empty-state-icon">🎯</div><div class="empty-state-title">No leads yet</div><div class="empty-state-sub">Import leads first, then come here to send outreach</div></div>
+  </div>
+</div>
+
+<!-- PROMPTS -->
+<div id="page-prompts" class="page">
+  <div class="topbar">
+    <div class="topbar-title">Prompts</div>
+    <div class="topbar-actions">
+      <button class="btn btn-primary" onclick="savePrompts()">Save Changes</button>
+    </div>
+  </div>
+  <div class="content">
+    <div style="background:var(--accent-light);border:1px solid #bfdbfe;border-radius:10px;padding:14px 18px;font-size:13px;margin-bottom:18px;line-height:1.7">
+      <strong>How prompts work:</strong> These are your pitch templates. Use <strong>{{business}}</strong>, <strong>{{first_name}}</strong>, <strong>{{website}}</strong> and they'll be swapped with the lead's real info when you send. You can always edit the message for a specific lead in the Outreach Overview.
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+      <div class="panel">
+        <div class="panel-head"><div class="panel-title">🌐 Website Work</div></div>
+        <div style="padding:18px 20px">
+          <div class="field">
+            <label>Subject Line (Email)</label>
+            <input type="text" id="prompt-web-subject" placeholder="Quick question about {{business}}'s website">
+          </div>
+          <div class="field" style="margin-top:12px">
+            <label>Message Body</label>
+            <textarea id="prompt-web-body" style="min-height:160px" placeholder="Hi {{first_name}}, I came across {{business}} and noticed your website could use some improvements..."></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><div class="panel-title">📸 Photo & Video Content</div></div>
+        <div style="padding:18px 20px">
+          <div class="field">
+            <label>Subject Line (Email)</label>
+            <input type="text" id="prompt-photo-subject" placeholder="Elevate {{business}}'s visual content">
+          </div>
+          <div class="field" style="margin-top:12px">
+            <label>Message Body</label>
+            <textarea id="prompt-photo-body" style="min-height:160px" placeholder="Hi {{first_name}}, I help local businesses like {{business}} stand out with professional photos and videos..."></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><div class="panel-title">📱 Social Media Management</div></div>
+        <div style="padding:18px 20px">
+          <div class="field">
+            <label>Subject Line (Email)</label>
+            <input type="text" id="prompt-social-subject" placeholder="Growing {{business}}'s social media">
+          </div>
+          <div class="field" style="margin-top:12px">
+            <label>Message Body</label>
+            <textarea id="prompt-social-body" style="min-height:160px" placeholder="Hi {{first_name}}, I noticed {{business}} isn't very active on social media. I help local businesses grow their following..."></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><div class="panel-title">⚡ All Services</div></div>
+        <div style="padding:18px 20px">
+          <div class="field">
+            <label>Subject Line (Email)</label>
+            <input type="text" id="prompt-all-subject" placeholder="A few ways I can help {{business}}">
+          </div>
+          <div class="field" style="margin-top:12px">
+            <label>Message Body</label>
+            <textarea id="prompt-all-body" style="min-height:160px" placeholder="Hi {{first_name}}, I work with local businesses like {{business}} on their website, social media, and content..."></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:6px;text-align:right">
+      <div id="promptSaveStatus" style="font-size:13px;color:var(--success);display:none">✓ Prompts saved!</div>
+    </div>
+  </div>
+</div>
+
+<!-- CAMPAIGNS -->
+<div id="page-campaigns" class="page">
+  <div class="topbar">
+    <div class="topbar-title">Campaigns</div>
+    <div class="topbar-actions">
+      <button class="btn btn-primary" onclick="open_modal('newCampaign')">+ New Campaign</button>
+    </div>
+  </div>
+  <div class="content">
+    <div class="panel">
+      <div class="panel-head"><div class="panel-title">All Campaigns</div></div>
+      <div class="campaign-list" id="campList">
+        <div class="empty-state"><div class="empty-state-icon">⚡</div><div class="empty-state-title">No campaigns yet</div><div class="empty-state-sub">Click + New Campaign to get started</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- INBOX -->
+<div id="page-inbox" class="page">
+  <div class="topbar">
+    <div class="topbar-title">Inbox</div>
+    <div class="topbar-actions">
+      <button class="btn btn-primary" onclick="open_modal('compose')">✉ Compose Email</button>
+    </div>
+  </div>
+  <div class="content">
+    <div class="panel">
+      <div class="tabs">
+        <div class="tab active" id="tab-all" onclick="switchInboxTab('all',this)">All</div>
+        <div class="tab" id="tab-email" onclick="switchInboxTab('email',this)">Email</div>
+        <div class="tab" id="tab-sms" onclick="switchInboxTab('sms',this)">SMS</div>
+      </div>
+      <div class="inbox-list" id="inboxList">
+        <div class="empty-state"><div class="empty-state-icon">✉</div><div class="empty-state-title">No messages yet</div><div class="empty-state-sub">Messages will appear here after you send outreach</div></div>
+      </div>
+    </div>
+    <div class="panel" style="margin-top:18px">
+      <div class="panel-head"><div class="panel-title">Log a Manual Reply</div></div>
+      <div style="padding:18px 20px;display:flex;flex-direction:column;gap:12px">
+        <div class="row2">
+          <div class="field">
+            <label>Business Name</label>
+            <input type="text" id="reply-biz" placeholder="Smith Barbershop">
+          </div>
+          <div class="field">
+            <label>Channel</label>
+            <select id="reply-ch"><option value="email">Email</option><option value="sms">SMS</option></select>
+          </div>
+        </div>
+        <div class="field">
+          <label>Their Message / Notes</label>
+          <textarea id="reply-msg" style="min-height:80px" placeholder="What did they say?"></textarea>
+        </div>
+        <div style="display:flex;gap:10px">
+          <button class="btn btn-primary" onclick="logReply()">Log Reply</button>
+          <button class="btn btn-outline" onclick="logReply('booked')">🎉 Mark as Booked</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACTED -->
+<div id="page-contacted" class="page">
+  <div class="topbar">
+    <div class="topbar-title">Contacted Leads</div>
+    <div class="topbar-actions">
+      <select id="contactedFilter" onchange="renderContacted()" style="padding:8px 12px;border-radius:8px;border:1px solid var(--border);font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;background:#fff;cursor:pointer">
+        <option value="all">All Contacted</option>
+        <option value="sent">Sent</option>
+        <option value="replied">Replied</option>
+        <option value="booked">Booked</option>
+      </select>
+    </div>
+  </div>
+  <div class="content">
+    <div class="stats-grid" style="grid-template-columns:repeat(3,1fr)">
+      <div class="stat-card"><div class="stat-label">Total Sent</div><div class="stat-value" id="c-stat-sent">0</div></div>
+      <div class="stat-card"><div class="stat-label">Replied</div><div class="stat-value" id="c-stat-replied">0</div></div>
+      <div class="stat-card"><div class="stat-label">Booked</div><div class="stat-value" id="c-stat-booked">0</div></div>
+    </div>
+    <div class="panel">
+      <div class="table-wrap">
+        <table>
+          <thead><tr>
+            <th>Business</th><th>Contact</th><th>Email</th><th>Phone</th><th>Method</th><th>Status</th><th>Actions</th>
+          </tr></thead>
+          <tbody id="contactedTable"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AI ASSISTANT -->
+<div id="page-ai" class="page">
+  <div class="topbar">
+    <div class="topbar-title">AI Assistant</div>
+    <div class="topbar-actions">
+      <button class="btn btn-outline btn-sm" onclick="clearAIChat()">Clear Chat</button>
+    </div>
+  </div>
+  <div class="content" style="display:flex;flex-direction:column;height:calc(100vh - 57px);padding-bottom:0">
+    <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:14px 18px;font-size:13px;margin-bottom:16px;line-height:1.7;color:var(--text2)">
+      <strong>Your built-in AI assistant.</strong> Ask anything — help writing cold email scripts, improving your pitches, what to say in a follow-up, how to price your services, or anything about running your outreach agency.
+    </div>
+    <div id="aiMessages" style="flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:14px;padding-bottom:16px;min-height:0"></div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px;margin-top:auto;position:sticky;bottom:0">
+      <div style="display:flex;gap:10px;align-items:flex-end">
+        <textarea id="aiInput" placeholder="Ask anything... e.g. Write me a cold email for a barbershop offering social media management" 
+          style="flex:1;font-family:'Montserrat',sans-serif;font-size:13px;border:1px solid var(--border);border-radius:8px;padding:10px 12px;resize:none;outline:none;line-height:1.5;min-height:44px;max-height:160px;overflow-y:auto"
+          onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendAIMessage()}"
+          oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,160)+'px'"></textarea>
+        <button class="btn btn-primary" onclick="sendAIMessage()" id="aiSendBtn" style="flex-shrink:0;height:44px">Send</button>
+      </div>
+      <div style="font-size:11px;color:#6b7280;margin-top:8px">Press Enter to send · Shift+Enter for new line</div>
+    </div>
+  </div>
+</div>
+
+<!-- SETTINGS -->
+<div id="page-settings" class="page">
+  <div class="topbar"><div class="topbar-title">Settings</div></div>
+  <div class="content">
+    <div class="panel">
+      <div class="panel-head"><div class="panel-title">📧 Email Sending — Brevo Setup</div></div>
+      <div style="padding:22px 24px;display:flex;flex-direction:column;gap:18px">
+        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:16px 18px;font-size:13px;line-height:1.8">
+          <strong>Setup steps (free, ~5 minutes):</strong><br>
+          1. Go to <a href="https://www.brevo.com" target="_blank" style="color:var(--accent);font-weight:600">brevo.com</a> → create a free account (300 emails/day free forever)<br>
+          2. Go to <strong>SMTP & API</strong> → <strong>API Keys</strong> → click <strong>Generate a new API key</strong><br>
+          3. Copy your API key and paste it below<br>
+          4. Enter the email address you want to send from (must be verified in Brevo)<br>
+          5. To verify your sender email: go to <strong>Senders & IP</strong> → <strong>Senders</strong> → Add a new sender
+        </div>
+        <div class="field">
+          <label>Brevo API Key</label>
+          <input type="text" id="brevo-apikey" placeholder="xkeysib-xxxxxxxxxxxxxxxxxxxxxxxx">
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label>Your Sender Email</label>
+            <input type="email" id="brevo-email" placeholder="yourname@gmail.com">
+          </div>
+          <div class="field">
+            <label>Your Sender Name</label>
+            <input type="text" id="brevo-name" placeholder="Your Name">
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px">
+          <button class="btn btn-primary" onclick="saveEmailSettings()">Save Settings</button>
+          <button class="btn btn-outline" onclick="testEmail()">Send Test Email</button>
+          <div id="emailSettingsStatus" style="font-size:13px;color:var(--success);display:none">✓ Saved!</div>
+        </div>
+        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:14px 16px;font-size:13px">
+          <strong>Free plan:</strong> 300 emails/day, unlimited contacts, no credit card needed<br>
+          <strong>Starter ($9/mo):</strong> 20,000 emails/month with no daily limit
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head"><div class="panel-title">📱 SMS — Send From Your Phone</div></div>
+      <div style="padding:22px 24px;display:flex;flex-direction:column;gap:14px">
+        <div style="background:var(--sms-light);border:1px solid #fed7aa;border-radius:10px;padding:16px 18px;font-size:13px;line-height:1.8">
+          <strong>SMS is handled manually from your phone.</strong><br>
+          In the Outreach Overview, select SMS for a lead and the message will be formatted and ready to copy. You then paste it into your phone's messages app and send it manually. This keeps it personal, free, and avoids spam filters completely.
+        </div>
+        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:14px 16px;font-size:13px">
+          <strong>Tips for SMS outreach:</strong><br>
+          → Keep messages under 160 characters<br>
+          → Text during business hours (9am–6pm)<br>
+          → Always introduce yourself in the first message<br>
+          → Don't send bulk texts all at once — spread them out
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head"><div class="panel-title">✉ Send Yourself — Gmail Address</div></div>
+      <div style="padding:22px 24px;display:flex;flex-direction:column;gap:14px">
+        <div style="font-size:13px;color:var(--text2);line-height:1.7">
+          When you use <strong>Send Yourself</strong> in Outreach Overview, Gmail opens pre-filled with the lead's address, subject, and message. Save your Gmail here so the platform knows which account to use.
+        </div>
+        <div class="field">
+          <label>Your Gmail Address</label>
+          <input type="email" id="self-email" placeholder="yourname@gmail.com">
+        </div>
+        <div style="display:flex;align-items:center;gap:12px">
+          <button class="btn btn-primary" onclick="saveSelfEmail()">Save</button>
+          <div id="selfEmailStatus" style="font-size:13px;color:var(--success);display:none">✓ Saved!</div>
+        </div>
+        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:14px 16px;font-size:13px;color:var(--text2)">
+          Opens Gmail in a new tab with everything pre-filled — just review and hit Send. No API needed, completely free.
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head"><div class="panel-title">🛡️ Staying Out of Spam</div></div>
+      <div style="padding:22px 24px;display:grid;grid-template-columns:1fr 1fr;gap:14px">
+        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:16px">
+          <div style="font-weight:700;margin-bottom:8px;font-size:13px">✅ Do This</div>
+          <ul style="font-size:12px;color:var(--text2);line-height:2.2;list-style:none">
+            <li>→ Send under 50 emails/day to start</li>
+            <li>→ Personalize with name & business</li>
+            <li>→ Use a real Gmail or Outlook</li>
+            <li>→ Subject lines under 50 characters</li>
+            <li>→ Include an opt-out line</li>
+          </ul>
+        </div>
+        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:16px">
+          <div style="font-weight:700;margin-bottom:8px;font-size:13px">❌ Avoid This</div>
+          <ul style="font-size:12px;color:var(--text2);line-height:2.2;list-style:none">
+            <li>→ Blasting 100s of emails at once</li>
+            <li>→ Words like FREE, GUARANTEED, ACT NOW</li>
+            <li>→ Emailing addresses that bounce</li>
+            <li>→ Brand new email accounts</li>
+            <li>→ All caps subject lines</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- end .main -->
+
+<!-- MODALS -->
+
+<!-- ADD LEAD -->
+<div class="overlay" id="overlay-addLead">
+  <div class="modal">
+    <div class="modal-head"><div class="modal-title">Add Lead</div><button class="modal-close" onclick="close_modal('addLead')">×</button></div>
+    <div class="modal-body">
+      <div class="row2">
+        <div class="field"><label>First Name</label><input type="text" id="l-first" placeholder="John"></div>
+        <div class="field"><label>Last Name</label><input type="text" id="l-last" placeholder="Smith"></div>
+      </div>
+      <div class="field"><label>Business Name</label><input type="text" id="l-biz" placeholder="Smith's Barbershop"></div>
+      <div class="field"><label>Category</label><select id="l-cat"><option>Barbershop</option><option>Restaurant</option><option>Gym / Trainer</option><option>Nail Salon</option><option>Auto Repair</option><option>Other</option></select></div>
+      <div class="row2">
+        <div class="field"><label>Email Address</label><input type="email" id="l-email" placeholder="owner@business.com"></div>
+        <div class="field"><label>Phone Number</label><input type="tel" id="l-phone" placeholder="+1 (555) 000-0000"></div>
+      </div>
+      <div class="field"><label>Website</label><input type="url" id="l-website" placeholder="https://www.business.com"></div>
+      <div class="field"><label>City</label><input type="text" id="l-city" placeholder="Newark, NJ"></div>
+      <div class="field">
+        <label>Service Goal</label>
+        <select id="l-goal">
+          <option value="">— Not set —</option>
+          <option value="web">🌐 Website Work</option>
+          <option value="photo">📸 Photo & Video Content</option>
+          <option value="social">📱 Social Media Management</option>
+          <option value="all-services">⚡ All Services</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-outline" onclick="close_modal('addLead')">Cancel</button>
+      <button class="btn btn-primary" onclick="addLead()">Add Lead</button>
+    </div>
+  </div>
+</div>
+
+<!-- IMPORT CSV -->
+<div class="overlay" id="overlay-importLeads">
+  <div class="modal">
+    <div class="modal-head"><div class="modal-title">Import Leads from CSV</div><button class="modal-close" onclick="close_modal('importLeads')">×</button></div>
+    <div class="modal-body">
+      <div class="drop-zone" onclick="document.getElementById('csvInput').click()">
+        <div style="font-size:28px;margin-bottom:10px">📁</div>
+        <div style="font-size:14px;font-weight:600">Drop CSV here or click to browse</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:4px">Format: CONTACT, BUSINESS, CATEGORY, EMAIL, PHONE, WEBSITE, CITY, STATUS</div>
+        <input type="file" id="csvInput" accept=".csv" style="display:none" onchange="handleCSV(this)">
+      </div>
+      <div id="csvStatus" style="font-size:13px;color:var(--success);display:none"></div>
+      <div class="field" id="csvGoalWrap" style="display:none">
+        <label>Assign Service Goal to Imported Leads</label>
+        <select id="csv-goal">
+          <option value="">— Not set —</option>
+          <option value="web">🌐 Website Work</option>
+          <option value="photo">📸 Photo & Video Content</option>
+          <option value="social">📱 Social Media Management</option>
+          <option value="all-services">⚡ All Services</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-outline" onclick="close_modal('importLeads')">Cancel</button>
+      <button class="btn btn-primary" id="importBtn" disabled onclick="importCSV()">Import Leads</button>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT LEAD -->
+<div class="overlay" id="overlay-editLead">
+  <div class="modal">
+    <div class="modal-head"><div class="modal-title">Edit Lead</div><button class="modal-close" onclick="close_modal('editLead')">×</button></div>
+    <div class="modal-body">
+      <div class="row2">
+        <div class="field"><label>First Name</label><input type="text" id="e-first" placeholder="John"></div>
+        <div class="field"><label>Last Name</label><input type="text" id="e-last" placeholder="Smith"></div>
+      </div>
+      <div class="field"><label>Business Name</label><input type="text" id="e-biz" placeholder="Smith's Barbershop"></div>
+      <div class="field"><label>Category</label><select id="e-cat"><option>Barbershop</option><option>Restaurant</option><option>Gym / Trainer</option><option>Nail Salon</option><option>Auto Repair</option><option>Other</option></select></div>
+      <div class="row2">
+        <div class="field"><label>Email Address</label><input type="email" id="e-email" placeholder="owner@business.com"></div>
+        <div class="field"><label>Phone Number</label><input type="tel" id="e-phone" placeholder="+1 (555) 000-0000"></div>
+      </div>
+      <div class="field"><label>Website</label><input type="url" id="e-website" placeholder="https://www.business.com"></div>
+      <div class="field"><label>City</label><input type="text" id="e-city" placeholder="Newark, NJ"></div>
+      <div class="field">
+        <label>Service Goal</label>
+        <select id="e-goal">
+          <option value="">— Not set —</option>
+          <option value="web">🌐 Website Work</option>
+          <option value="photo">📸 Photo & Video Content</option>
+          <option value="social">📱 Social Media Management</option>
+          <option value="all-services">⚡ All Services</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-outline" onclick="close_modal('editLead')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveLead()">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<!-- NEW CAMPAIGN -->
+<div class="overlay" id="overlay-newCampaign">
+  <div class="modal">
+    <div class="modal-head"><div class="modal-title">New Campaign</div><button class="modal-close" onclick="close_modal('newCampaign')">×</button></div>
+    <div class="modal-body">
+      <div class="field"><label>Campaign Name</label><input type="text" id="cn-name" placeholder="e.g. Barbershop Email Blast — March"></div>
+      <div class="field"><label>Channel</label><div class="channel-btns"><button class="ch-btn sel-email" onclick="selCh(this,'email')">✉ Email</button><button class="ch-btn" onclick="selCh(this,'sms')">💬 SMS</button><button class="ch-btn" onclick="selCh(this,'both')">⚡ Both</button></div></div>
+      <div class="field">
+        <label>Target Audience</label>
+        <select id="cn-target-type" onchange="toggleLeadPicker(this.value)">
+          <option value="all-email">All Leads with Email</option>
+          <option value="all-sms">All Leads with Phone (SMS)</option>
+          <option value="all-both">All Leads with Email & Phone</option>
+          <option value="individual">Select Individual Leads</option>
+        </select>
+      </div>
+      <div class="field" id="leadPickerWrap" style="display:none">
+        <label>Select Leads</label>
+        <div id="leadPicker" style="max-height:180px;overflow-y:auto;border:1px solid var(--border);border-radius:8px;padding:6px 4px;display:flex;flex-direction:column;gap:2px"></div>
+        <div style="font-size:11px;color:#4b5563;margin-top:4px" id="leadPickerHint"></div>
+      </div>
+      <div class="field"><label>Subject Line (Email)</label><input type="text" id="cn-subject" placeholder="Quick question about your business..."></div>
+      <div class="field"><label>Message</label><textarea id="cn-message" placeholder="Hi {{first_name}}, I came across {{business}}..."></textarea></div>
+      <div class="field"><label>Follow-up Sequence</label><select><option>No follow-up</option><option>1 follow-up (3 days later)</option><option>2 follow-ups (3 + 7 days)</option><option>3 follow-ups (3 + 7 + 14 days)</option></select></div>
+      <div class="field">
+        <label>Sender Email</label>
+        <input type="email" id="cn-sender" placeholder="yourname@gmail.com">
+        <div style="font-size:11px;color:#4b5563;margin-top:4px">Must match your Brevo verified sender email</div>
+      </div>
+      <div class="row2">
+        <div class="field"><label>Schedule Date</label><input type="date" id="cn-date"></div>
+        <div class="field"><label>Schedule Time</label><input type="time" id="cn-time"></div>
+      </div>
+      <div style="font-size:11px;color:var(--muted)">Leave date/time blank to send immediately on launch</div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-outline" onclick="close_modal('newCampaign')">Cancel</button>
+      <button class="btn btn-primary" onclick="createCampaign()">Launch Campaign</button>
+    </div>
+  </div>
+</div>
+
+<!-- COMPOSE EMAIL -->
+<div class="overlay" id="overlay-compose">
+  <div class="modal">
+    <div class="modal-head"><div class="modal-title">Compose Email</div><button class="modal-close" onclick="close_modal('compose')">×</button></div>
+    <div class="modal-body">
+      <div class="field"><label>To</label><input type="text" id="compose-to" placeholder="email@business.com"></div>
+      <div class="field"><label>Subject</label><input type="text" id="compose-subject" placeholder="Subject line..."></div>
+      <div class="field"><label>Message</label><textarea id="compose-body" style="min-height:160px" placeholder="Write your email..."></textarea></div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-outline" onclick="close_modal('compose')">Cancel</button>
+      <button class="btn btn-primary" onclick="sendComposedEmail()">Send Email</button>
+    </div>
+  </div>
+</div>
+
+
+<script>
+
+// ─── DATA ───────────────────────────────────────────────
+let leads = [];
+let campaigns = [];
+let inbox = [];
+let csvLeads = [];
+
+const GOAL_LABELS = {
+  'web': '🌐 Website Work',
+  'photo': '📸 Photo & Video',
+  'social': '📱 Social Media',
+  'all-services': '⚡ All Services',
+  '': '— Not set —'
+};
+
+const GOAL_TAG = {
+  'web': 'tag-web',
+  'photo': 'tag-photo',
+  'social': 'tag-social',
+  'all-services': 'tag-all',
+  '': 'tag-sent'
+};
+
+// ─── LOCK ────────────────────────────────────────────────
+function checkPass() {
+  var val = document.getElementById('lockInput').value;
+  if (val === '0531') {
+    document.getElementById('lockscreen').style.display = 'none';
+    try { loadSettings(); } catch(e) {}
+    try { renderAll(); } catch(e) {}
+  } else {
+    document.getElementById('lockError').style.display = 'block';
+    document.getElementById('lockInput').value = '';
+    setTimeout(function(){ document.getElementById('lockError').style.display = 'none'; }, 3000);
+  }
+}
+
+// ─── NAV ─────────────────────────────────────────────────
+function go(page, el) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-'+page).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  if (el) el.classList.add('active');
+  renderAll();
+}
+
+// ─── MODALS ───────────────────────────────────────────────
+function open_modal(id) {
+  document.getElementById('overlay-'+id).classList.add('open');
+  if (id === 'newCampaign') populateLeadPicker();
+}
+function close_modal(id) {
+  document.getElementById('overlay-'+id).classList.remove('open');
+}
+document.querySelectorAll('.overlay').forEach(o => {
+  o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); });
+});
+
+// ─── LEAD PICKER ─────────────────────────────────────────
+function populateLeadPicker() {
+  const picker = document.getElementById('leadPicker');
+  const hint = document.getElementById('leadPickerHint');
+  if (!picker) return;
+  if (leads.length === 0) {
+    picker.innerHTML = '';
+    hint.textContent = 'No leads added yet';
+    return;
+  }
+  hint.textContent = '';
+  picker.innerHTML = `
+    <label style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:700;border-bottom:1px solid var(--border);margin-bottom:4px">
+      <input type="checkbox" id="selectAllLeads" style="width:14px;height:14px;accent-color:var(--accent);cursor:pointer" onchange="toggleAllLeads(this.checked)">
+      Select All (${leads.length} leads)
+    </label>
+    ${leads.map(l => `
+    <label style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:6px;cursor:pointer;font-size:13px;font-weight:400">
+      <input type="checkbox" class="lead-check" value="${l.email||l.phone}" style="width:14px;height:14px;accent-color:var(--accent);cursor:pointer">
+      <span><strong>${l.biz}</strong>${(l.first||l.last)?' — '+(l.first+' '+l.last).trim():''} ${l.phone?'· '+l.phone:''}</span>
+    </label>`).join('')}`;
+}
+
+function toggleLeadPicker(val) {
+  const wrap = document.getElementById('leadPickerWrap');
+  wrap.style.display = val === 'individual' ? 'block' : 'none';
+  if (val === 'individual') populateLeadPicker();
+}
+
+function toggleAllLeads(checked) {
+  document.querySelectorAll('.lead-check').forEach(cb => cb.checked = checked);
+}
+
+// ─── RENDER ALL ───────────────────────────────────────────
+function renderAll() {
+  renderLeads();
+  renderOutreach();
+  renderCampaigns();
+  renderDashboard();
+  renderInbox();
+  renderContacted();
+  updateBadges();
+}
+
+let inboxTab = 'all';
+function switchInboxTab(tab, el) {
+  inboxTab = tab;
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  if (el) el.classList.add('active');
+  renderInbox();
+}
+
+function renderInbox() {
+  const el = document.getElementById('inboxList');
+  if (!el) return;
+  const filtered = inboxTab === 'all' ? inbox : inbox.filter(m => m.ch === inboxTab);
+  if (filtered.length === 0) {
+    el.innerHTML = '<div class="empty-state"><div class="empty-state-icon">✉</div><div class="empty-state-title">No messages yet</div><div class="empty-state-sub">Messages will appear here after you send outreach</div></div>';
+    return;
+  }
+  el.innerHTML = filtered.map((m,i) => `
+    <div class="inbox-row" onclick="markRead(${i})">
+      <div class="inbox-dot ${m.unread?'':'hidden'}"></div>
+      <div class="inbox-body">
+        <div class="inbox-top">
+          <span class="inbox-name">${m.name||'Unknown'}</span>
+          <span class="tag tag-${m.ch==='sms'?'sms':'email'}" style="font-size:10px">${m.ch==='sms'?'SMS':'Email'}</span>
+          <span class="inbox-time">${m.time||''}</span>
+        </div>
+        <div class="inbox-preview">${m.msg||''}</div>
+      </div>
+    </div>`).join('');
+}
+
+function markRead(i) {
+  inbox[i].unread = false;
+  updateBadges();
+  renderInbox();
+}
+
+function logReply(type) {
+  const biz = document.getElementById('reply-biz').value.trim();
+  const msg = document.getElementById('reply-msg').value.trim();
+  const ch  = document.getElementById('reply-ch').value;
+  if (!biz) { alert('Enter the business name.'); return; }
+  // Find matching lead and update status
+  const lead = leads.find(l => l.biz.toLowerCase().includes(biz.toLowerCase()));
+  if (lead) lead.status = type === 'booked' ? 'booked' : 'replied';
+  inbox.unshift({ name: biz, msg: msg||'Reply logged manually', time: 'Just now', unread: true, ch });
+  document.getElementById('reply-biz').value = '';
+  document.getElementById('reply-msg').value = '';
+  renderAll();
+}
+
+function renderContacted() {
+  const tbody = document.getElementById('contactedTable');
+  if (!tbody) return;
+  const filter = document.getElementById('contactedFilter')?.value || 'all';
+  const statuses = ['sent','replied','booked'];
+  let contacted = leads.filter(l => statuses.includes(l.status));
+  if (filter !== 'all') contacted = contacted.filter(l => l.status === filter);
+
+  // Update stats
+  const s = id => document.getElementById(id);
+  if (s('c-stat-sent'))    s('c-stat-sent').textContent    = leads.filter(l => statuses.includes(l.status)).length;
+  if (s('c-stat-replied')) s('c-stat-replied').textContent = leads.filter(l => l.status==='replied'||l.status==='booked').length;
+  if (s('c-stat-booked'))  s('c-stat-booked').textContent  = leads.filter(l => l.status==='booked').length;
+
+  if (contacted.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="7"><div class="empty-state"><div class="empty-state-icon">✅</div><div class="empty-state-title">No contacted leads yet</div><div class="empty-state-sub">Leads move here after you send outreach</div></div></td></tr>';
+    return;
+  }
+  tbody.innerHTML = contacted.map(l => {
+    const idx = leads.indexOf(l);
+    const statusColors = { sent: 'tag-sent', replied: 'tag-replied', booked: 'tag-booked' };
+    return `<tr>
+      <td><div class="lead-name">${l.biz||'-'}</div></td>
+      <td>${((l.first||'')+' '+(l.last||'')).trim()||'-'}</td>
+      <td style="font-size:12px">${l.email||'-'}</td>
+      <td style="font-size:12px">${l.phone||'-'}</td>
+      <td><span class="tag tag-${l.outreachMethod==='sms'?'sms':'email'}" style="font-size:11px">${l.outreachMethod==='sms'?'SMS':'Email'}</span></td>
+      <td>
+        <select onchange="updateLeadStatus(${idx},this.value)" style="font-size:12px;padding:4px 8px;border-radius:6px;border:1px solid var(--border);font-family:'Montserrat',sans-serif;font-weight:600">
+          <option value="sent"    ${l.status==='sent'   ?'selected':''}>Sent</option>
+          <option value="replied" ${l.status==='replied'?'selected':''}>Replied</option>
+          <option value="booked"  ${l.status==='booked' ?'selected':''}>Booked</option>
+        </select>
+      </td>
+      <td><button class="btn btn-outline btn-sm" onclick="moveBackToPending(${idx})">↩ Reset</button></td>
+    </tr>`;
+  }).join('');
+}
+
+function updateLeadStatus(idx, status) {
+  leads[idx].status = status;
+  renderContacted();
+  updateBadges();
+}
+
+function moveBackToPending(idx) {
+  leads[idx].status = 'pending';
+  leads[idx].outreachMethod = '';
+  renderAll();
+}
+
+// ─── DASHBOARD ────────────────────────────────────────────
+function renderDashboard() {
+  document.getElementById('stat-leads').textContent = leads.length;
+  document.getElementById('stat-ready').textContent = leads.filter(l => l.email || l.phone).length;
+  document.getElementById('stat-contacted').textContent = leads.filter(l => l.status === 'sent' || l.status === 'replied' || l.status === 'booked').length;
+  document.getElementById('stat-replied').textContent = leads.filter(l => l.status === 'replied' || l.status === 'booked').length;
+
+  // Goal breakdown
+  const breakdown = document.getElementById('goalBreakdown');
+  const goals = ['web','photo','social','all-services'];
+  const counts = {};
+  goals.forEach(g => counts[g] = leads.filter(l => l.goal === g).length);
+  const total = leads.length || 1;
+  if (leads.length === 0) {
+    breakdown.innerHTML = '<div class="empty-state"><div class="empty-state-icon">◎</div><div class="empty-state-title">No leads yet</div></div>';
+    return;
+  }
+  breakdown.innerHTML = goals.map(g => `
+    <div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:5px;font-size:13px">
+        <span>${GOAL_LABELS[g]}</span>
+        <span style="font-weight:700">${counts[g]}</span>
+      </div>
+      <div style="height:6px;background:var(--border);border-radius:3px;overflow:hidden">
+        <div style="height:100%;border-radius:3px;background:var(--accent);width:${Math.round(counts[g]/total*100)}%"></div>
+      </div>
+    </div>`).join('');
+}
+
+function updateBadges() {
+  const get = id => document.getElementById(id);
+  if (get('leadCountBadge')) get('leadCountBadge').textContent = leads.length;
+  if (get('inboxBadge'))     get('inboxBadge').textContent     = inbox.filter(m => m.unread).length;
+  if (get('contactedBadge')) get('contactedBadge').textContent = leads.filter(l => ['sent','replied','booked'].includes(l.status)).length;
+}
+
+// ─── LEADS ────────────────────────────────────────────────
+function renderLeads() {
+  const tbody = document.getElementById('leadsTable');
+  if (!tbody) return;
+  const q = (document.getElementById('leadSearch')?.value || '').toLowerCase();
+  const filtered = q ? leads.filter(l =>
+    (l.biz+l.first+l.last+l.email+l.phone+l.city).toLowerCase().includes(q)
+  ) : leads;
+
+  if (filtered.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="9"><div class="empty-state"><div class="empty-state-icon">◎</div><div class="empty-state-title">${leads.length===0?'No leads yet — add one or import a CSV':'No results found'}</div></div></td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = filtered.map((l, i) => `
+    <tr>
+      <td><div class="lead-name">${l.biz||'—'}</div></td>
+      <td>${(l.first||'') + ' ' + (l.last||'')||'—'}</td>
+      <td style="font-size:12px;color:var(--muted)">${l.email||'—'}</td>
+      <td style="font-size:12px;color:var(--muted)">${l.phone||'—'}</td>
+      <td style="font-size:12px">${l.website ? `<a href="${l.website.startsWith('http')?l.website:'https://'+l.website}" target="_blank" style="color:#2563eb;text-decoration:underline;font-weight:600">${l.website.replace(/https?:\/\//,'').substring(0,24)}</a>` : '—'}</td>
+      <td style="font-size:12px;color:var(--text2)">${l.city||'—'}</td>
+      <td>
+        <select class="goal-select" onchange="updateLeadGoal(${leads.indexOf(l)}, this.value)" style="color:${l.goal?'var(--text)':'var(--muted)'}">
+          <option value="" ${!l.goal?'selected':''}>— Not set —</option>
+          <option value="web" ${l.goal==='web'?'selected':''}>🌐 Website Work</option>
+          <option value="photo" ${l.goal==='photo'?'selected':''}>📸 Photo & Video</option>
+          <option value="social" ${l.goal==='social'?'selected':''}>📱 Social Media</option>
+          <option value="all-services" ${l.goal==='all-services'?'selected':''}>⚡ All Services</option>
+        </select>
+      </td>
+      <td><span class="tag tag-${l.status||'pending'}">${l.status||'pending'}</span></td>
+      <td>
+        <div style="display:flex;gap:6px">
+          <button class="btn btn-outline btn-sm" onclick="openEditLead(${leads.indexOf(l)})">✏ Edit</button>
+          ${l.status==='pending'?`<button class="btn btn-danger btn-sm" onclick="deleteLead(${leads.indexOf(l)})">✕</button>`:''}
+        </div>
+      </td>
+    </tr>`).join('');
+}
+
+let editingLeadIdx = -1;
+
+function openEditLead(idx) {
+  editingLeadIdx = idx;
+  const l = leads[idx];
+  const get = id => document.getElementById(id);
+  get('e-first').value   = l.first   || '';
+  get('e-last').value    = l.last    || '';
+  get('e-biz').value     = l.biz     || '';
+  get('e-email').value   = l.email   || '';
+  get('e-phone').value   = l.phone   || '';
+  get('e-website').value = l.website || '';
+  get('e-city').value    = l.city    || '';
+  // Set category select
+  const catSel = get('e-cat');
+  [...catSel.options].forEach(o => o.selected = o.value === l.cat);
+  // Set goal select
+  get('e-goal').value = l.goal || '';
+  open_modal('editLead');
+}
+
+function saveLead() {
+  if (editingLeadIdx < 0) return;
+  const get = id => document.getElementById(id).value.trim();
+  leads[editingLeadIdx] = {
+    ...leads[editingLeadIdx],
+    first:   get('e-first'),
+    last:    get('e-last'),
+    biz:     get('e-biz') || 'Unknown',
+    cat:     get('e-cat'),
+    email:   get('e-email'),
+    phone:   get('e-phone'),
+    website: get('e-website'),
+    city:    get('e-city'),
+    goal:    get('e-goal'),
+  };
+  close_modal('editLead');
+  editingLeadIdx = -1;
+  renderAll();
+}
+
+function updateLeadGoal(idx, goal) {
+  leads[idx].goal = goal;
+  renderDashboard();
+}
+
+function deleteLead(idx) {
+  if (!confirm('Delete this lead?')) return;
+  leads.splice(idx, 1);
+  // Clear any saved messages for this index
+  delete savedMsgs[idx];
+  renderAll();
+}
+
+function addLead() {
+  const first = document.getElementById('l-first').value;
+  const email = document.getElementById('l-email').value;
+  const phone = document.getElementById('l-phone').value;
+  if (!document.getElementById('l-biz').value && !email && !phone) {
+    alert('Please enter at least a business name or contact info.'); return;
+  }
+  leads.unshift({
+    first, last: document.getElementById('l-last').value,
+    biz: document.getElementById('l-biz').value || 'Unknown',
+    cat: document.getElementById('l-cat').value,
+    email, phone,
+    website: document.getElementById('l-website').value,
+    city: document.getElementById('l-city').value,
+    goal: document.getElementById('l-goal').value,
+    status: 'pending'
+  });
+  close_modal('addLead');
+  ['l-first','l-last','l-biz','l-email','l-phone','l-website','l-city'].forEach(id => document.getElementById(id).value='');
+  document.getElementById('l-goal').value = '';
+  renderAll();
+}
+
+// ─── CSV IMPORT ───────────────────────────────────────────
+function handleCSV(input) {
+  const file = input.files[0]; if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const clean = v => { v = (v||'').replace(/[\r\n\t]/g,'').trim(); return (!v || v.toUpperCase()==='NONE' || v==='-') ? '' : v; };
+    const parseLine = line => {
+      const cols = []; let cur = '', inQ = false;
+      for (let ch of line) {
+        if (ch==='"') { inQ=!inQ; }
+        else if (ch===',' && !inQ) { cols.push(cur.replace(/[\r\n]/g,'').trim()); cur=''; }
+        else { cur+=ch; }
+      }
+      cols.push(cur.replace(/[\r\n]/g,'').trim());
+      return cols;
+    };
+    const lines = e.target.result.split('\n').filter(l => l.trim());
+    // Read header row and map column names -> indices
+    const headers = parseLine(lines[0]).map(h => h.replace(/[\r\n]/g,'').trim().toUpperCase());
+    const col = name => { const i = headers.indexOf(name); return i >= 0 ? i : -1; };
+    const iContact  = col('CONTACT');
+    const iBiz      = col('BUSINESS');
+    const iCat      = col('CATEGORY');
+    const iEmail    = col('EMAIL');
+    const iPhone    = col('PHONE');
+    const iWebsite  = col('WEBSITE');
+    const iCity     = col('CITY') >= 0 ? col('CITY') : col('LOCATION') >= 0 ? col('LOCATION') : col('ADDRESS') >= 0 ? col('ADDRESS') : -1;
+
+    csvLeads = lines.slice(1).map(line => {
+      const c = parseLine(line);
+      const get = i => i >= 0 ? clean(c[i]) : '';
+      const contact = get(iContact);
+      const parts = contact ? contact.split(' ') : [];
+      return {
+        first: parts[0]||'', last: parts.slice(1).join(' ')||'',
+        biz: get(iBiz)||'Unknown', cat: get(iCat)||'Other',
+        email: get(iEmail), phone: get(iPhone),
+        website: get(iWebsite), city: get(iCity), goal: '', status: 'pending'
+      };
+    }).filter(l => l.biz !== 'Unknown' || l.email || l.phone);
+
+    document.getElementById('csvStatus').textContent = `✓ ${csvLeads.length} leads ready to import`;
+    document.getElementById('csvStatus').style.display = 'block';
+    document.getElementById('csvGoalWrap').style.display = 'block';
+    document.getElementById('importBtn').disabled = false;
+  };
+  reader.readAsText(file);
+}
+
+function importCSV() {
+  const goal = document.getElementById('csv-goal').value;
+  csvLeads.forEach(l => l.goal = goal);
+  leads = [...csvLeads, ...leads];
+  csvLeads = [];
+  document.getElementById('csvStatus').style.display = 'none';
+  document.getElementById('csvGoalWrap').style.display = 'none';
+  document.getElementById('importBtn').disabled = true;
+  close_modal('importLeads');
+  renderAll();
+}
+
+// ─── PROMPTS ──────────────────────────────────────────────
+function loadPrompts() {
+  try {
+    const p = JSON.parse(localStorage.getItem('rb_prompts') || '{}');
+    const set = (id, val) => { const el = document.getElementById(id); if (el && val) el.value = val; };
+    set('prompt-web-subject', p['web-subject']);
+    set('prompt-web-body', p['web-body']);
+    set('prompt-photo-subject', p['photo-subject']);
+    set('prompt-photo-body', p['photo-body']);
+    set('prompt-social-subject', p['social-subject']);
+    set('prompt-social-body', p['social-body']);
+    set('prompt-all-subject', p['all-subject']);
+    set('prompt-all-body', p['all-body']);
+  } catch(e) { console.warn('loadPrompts error:', e); }
+}
+
+function savePrompts() {
+  const p = {
+    'web-subject': document.getElementById('prompt-web-subject').value,
+    'web-body': document.getElementById('prompt-web-body').value,
+    'photo-subject': document.getElementById('prompt-photo-subject').value,
+    'photo-body': document.getElementById('prompt-photo-body').value,
+    'social-subject': document.getElementById('prompt-social-subject').value,
+    'social-body': document.getElementById('prompt-social-body').value,
+    'all-subject': document.getElementById('prompt-all-subject').value,
+    'all-body': document.getElementById('prompt-all-body').value,
+  };
+  localStorage.setItem('rb_prompts', JSON.stringify(p));
+  const s = document.getElementById('promptSaveStatus');
+  s.style.display = 'block';
+  setTimeout(() => s.style.display = 'none', 3000);
+}
+
+function getPrompt(goal, type) {
+  const p = JSON.parse(localStorage.getItem('rb_prompts') || '{}');
+  // normalize goal key: 'all-services' stored as 'all-subject'/'all-body'
+  const g = (goal === 'all-services') ? 'all' : (goal || 'all');
+  const key = g + '-' + (type || 'body');
+  return p[key] || '';
+}
+
+
+function fillPrompt(text, lead) {
+  return text
+    .replace(/{{business}}/g, lead.biz||'your business')
+    .replace(/{{first_name}}/g, lead.first||'there')
+    .replace(/{{website}}/g, lead.website||'your website')
+    .replace(/{{phone}}/g, lead.phone||'');
+}
+
+// ─── OUTREACH OVERVIEW ────────────────────────────────────
+// Per-lead saved messages (survive re-renders)
+const savedMsgs = {};
+
+function renderOutreach() {
+  const container = document.getElementById('outreachContent');
+  if (!container) return;
+  const filter = document.getElementById('outreachFilter')?.value || 'all';
+
+  let filtered = leads;
+  if (filter === 'pending')      filtered = leads.filter(l => (l.status||'pending') === 'pending');
+  else if (filter === 'web')     filtered = leads.filter(l => l.goal === 'web');
+  else if (filter === 'photo')   filtered = leads.filter(l => l.goal === 'photo');
+  else if (filter === 'social')  filtered = leads.filter(l => l.goal === 'social');
+  else if (filter === 'all-services') filtered = leads.filter(l => l.goal === 'all-services');
+
+  if (filtered.length === 0) {
+    container.innerHTML = '<div class="empty-state"><div class="empty-state-icon">🎯</div><div class="empty-state-title">No leads to show</div><div class="empty-state-sub">Import leads or change your filter</div></div>';
+    return;
+  }
+
+  container.innerHTML = filtered.map(l => {
+    const idx = leads.indexOf(l);
+    const hasEmail = !!l.email;
+    const hasPhone = !!l.phone;
+    const status  = l.status || 'pending';
+    const method  = l.outreachMethod || '';
+
+    // Saved message fallback to prompt template
+    const saved = savedMsgs[idx] || {};
+    const defBody    = fillPrompt(getPrompt(l.goal, 'body'), l);
+    const defSubject = fillPrompt(getPrompt(l.goal, 'subject'), l);
+    const msgBody    = saved.body    !== undefined ? saved.body    : defBody;
+    const msgSubject = saved.subject !== undefined ? saved.subject : defSubject;
+
+    // Step completion logic
+    const step1done = !!method;
+    const step2done = !!(msgBody && msgBody.trim());
+    const step3done = ['sent','replied','booked'].includes(status);
+    const repliedDone = ['replied','booked'].includes(status);
+
+    const stepStyle = (done, active) =>
+      `flex:1;padding:10px 6px;text-align:center;font-size:11px;font-weight:700;
+       background:${done ? '#111827' : active ? '#1e3a5f' : 'transparent'};
+       color:${done||active ? '#fff' : '#6b7280'};border-right:1px solid var(--border);`;
+
+    return `
+    <div class="overview-card" id="oc-${idx}" style="margin-bottom:14px">
+
+      <!-- LEAD HEADER -->
+      <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:14px">
+        <input type="checkbox" class="lead-select-check" data-idx="${idx}"
+          style="width:16px;height:16px;accent-color:var(--accent);cursor:pointer;flex-shrink:0;margin-top:3px"
+          ${method==='email-bulk'?'checked':''} onchange="handleLeadCheck(${idx}, this.checked)">
+        <div style="flex:1;min-width:0">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;flex-wrap:wrap">
+            <span style="font-size:15px;font-weight:700">${l.biz||'Unknown'}</span>
+            <span class="tag tag-${status}">${status}</span>
+            ${l.goal ? `<span style="font-size:11px;font-weight:600;background:var(--surface2);border:1px solid var(--border);padding:2px 8px;border-radius:20px">${GOAL_LABELS[l.goal]||''}</span>` : ''}
+          </div>
+          <div style="font-size:12px;color:#6b7280;display:flex;gap:14px;flex-wrap:wrap;align-items:center">
+            ${l.email  ? `<span>✉ ${l.email}</span>` : ''}
+            ${l.phone  ? `<span>📱 ${l.phone}</span>` : ''}
+            ${l.website ? `<a href="${l.website.startsWith('http')?l.website:'https://'+l.website}" target="_blank" style="color:#2563eb;text-decoration:underline;font-weight:600;font-size:12px">🌐 ${l.website.replace(/https?:\/\//,'').substring(0,32)}</a>` : ''}
+          </div>
+        </div>
+      </div>
+
+      <!-- PROGRESS TRACKER -->
+      <div style="display:flex;border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:16px;font-family:'Montserrat',sans-serif">
+        <div style="${stepStyle(false,false)}border-left:none">1 — Add Lead<br><span style="font-size:10px;font-weight:400;color:${'#6ee7b7'}">✓ Done</span></div>
+        <div style="${stepStyle(step1done, false)}">2 — Send Method<br><span style="font-size:10px;font-weight:400">${step1done ? '✓ '+method.replace('email-',' ').replace('sms','SMS') : 'Not set'}</span></div>
+        <div style="${stepStyle(step2done, step1done&&!step2done)}">3 — Message<br><span style="font-size:10px;font-weight:400">${step2done ? '✓ Ready' : 'Needs prompt'}</span></div>
+        <div style="${stepStyle(step3done, step2done&&step1done&&!step3done)}">4 — Sent<br><span style="font-size:10px;font-weight:400">${step3done ? '✓ Sent' : 'Pending'}</span></div>
+        <div style="${stepStyle(repliedDone, step3done&&!repliedDone)}border-right:none">5 — Reply<br><span style="font-size:10px;font-weight:400">${repliedDone ? '✓ Replied' : 'Waiting'}</span></div>
+      </div>
+
+      <!-- STEP 1: SEND METHOD -->
+      <div style="margin-bottom:14px">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:var(--text2);margin-bottom:8px;letter-spacing:.5px">Step 1 — Send Method</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button onclick="setMethod(${idx},'sms')"
+            style="padding:8px 14px;border-radius:8px;border:1px solid var(--border);background:${method==='sms'?'#111827':'#fff'};color:${method==='sms'?'#fff':'var(--text2)'};font-family:'Montserrat',sans-serif;font-size:12px;font-weight:600;cursor:pointer"
+            ${!hasPhone ? 'disabled title="No phone number"' : ''}>
+            📱 SMS — My Phone
+          </button>
+          <button onclick="setMethod(${idx},'email-brevo')"
+            style="padding:8px 14px;border-radius:8px;border:1px solid var(--border);background:${method==='email-brevo'?'#111827':'#fff'};color:${method==='email-brevo'?'#fff':'var(--text2)'};font-family:'Montserrat',sans-serif;font-size:12px;font-weight:600;cursor:pointer"
+            ${!hasEmail ? 'disabled title="No email"' : ''}>
+            ✉ Send via Brevo
+          </button>
+          <button onclick="setMethod(${idx},'email-bulk')"
+            style="padding:8px 14px;border-radius:8px;border:1px solid var(--border);background:${method==='email-bulk'?'#111827':'#fff'};color:${method==='email-bulk'?'#fff':'var(--text2)'};font-family:'Montserrat',sans-serif;font-size:12px;font-weight:600;cursor:pointer"
+            ${!hasEmail ? 'disabled title="No email"' : ''}>
+            ⚡ Add to Bulk Send
+          </button>
+          <button onclick="setMethod(${idx},'email-self')"
+            style="padding:8px 14px;border-radius:8px;border:1px solid var(--border);background:${method==='email-self'?'#111827':'#fff'};color:${method==='email-self'?'#fff':'var(--text2)'};font-family:'Montserrat',sans-serif;font-size:12px;font-weight:600;cursor:pointer"
+            ${!hasEmail ? 'disabled title="No email"' : ''}>
+            ✉ Send Yourself
+          </button>
+        </div>
+        ${!hasEmail && !hasPhone ? '<div style="font-size:11px;color:var(--danger);margin-top:6px">⚠ No email or phone — update this lead first</div>' : ''}
+      </div>
+
+      <!-- STEP 2: MESSAGE -->
+      <div style="margin-bottom:14px">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:var(--text2);margin-bottom:8px;letter-spacing:.5px">
+          Step 2 — Message
+          <span style="text-transform:none;font-weight:400;font-size:11px;margin-left:8px">Load template:</span>
+          <span onclick="pickPrompt(${idx},'web')" style="margin-left:8px;font-size:11px;font-weight:600;text-transform:none;cursor:pointer;text-decoration:underline">Website</span>
+          <span onclick="pickPrompt(${idx},'photo')" style="margin-left:8px;font-size:11px;font-weight:600;text-transform:none;cursor:pointer;text-decoration:underline">Photo</span>
+          <span onclick="pickPrompt(${idx},'social')" style="margin-left:8px;font-size:11px;font-weight:600;text-transform:none;cursor:pointer;text-decoration:underline">Social</span>
+          <span onclick="pickPrompt(${idx},'all-services')" style="margin-left:8px;font-size:11px;font-weight:600;text-transform:none;cursor:pointer;text-decoration:underline">All Services</span>
+        </div>
+        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px 14px">
+          <input type="text" id="subject-${idx}"
+            value="${msgSubject.replace(/"/g,'&quot;')}"
+            placeholder="Subject line (email only)..."
+            style="width:100%;font-family:'Montserrat',sans-serif;font-size:12px;padding:7px 10px;border-radius:6px;border:1px solid var(--border);margin-bottom:8px;outline:none;background:#fff"
+            oninput="saveMsg(${idx})">
+          <div id="msg-${idx}" contenteditable="true"
+            style="font-family:'Montserrat',sans-serif;font-size:13px;color:var(--text2);line-height:1.7;outline:none;min-height:80px;white-space:pre-wrap"
+            oninput="saveMsg(${idx})">${msgBody || '<span style="color:var(--muted)">Click a template above or type your message here...</span>'}</div>
+        </div>
+      </div>
+
+      <!-- STEP 3: SEND -->
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:var(--text2);letter-spacing:.5px">Step 3 — Send</div>
+        <div style="display:flex;gap:8px">
+          ${method==='sms' ? `
+            <button class="btn btn-outline btn-sm" onclick="copyMsg(${idx})">📋 Copy for SMS</button>
+            <button class="btn btn-sms btn-sm" onclick="markSent(${idx})">✓ Mark Sent</button>
+          ` : ''}
+          ${method==='email-brevo' ? `
+            <button class="btn btn-primary btn-sm" onclick="sendEmailBrevo(${idx})">✉ Send via Brevo</button>
+          ` : ''}
+          ${method==='email-bulk' ? `
+            <span style="font-size:12px;color:var(--text2);font-weight:600">✓ Added to bulk send queue — use the bar at the top to send</span>
+          ` : ''}
+          ${method==='email-self' ? `
+            <button class="btn btn-outline btn-sm" onclick="copyMsg(${idx})">📋 Copy</button>
+            <a href="${(()=>{const se=localStorage.getItem('self_email')||'';return 'https://mail.google.com/mail/u/'+encodeURIComponent(se)+'/?view=cm&fs=1&to='+encodeURIComponent('${l.email}')+'&su='+encodeURIComponent(msgSubject)+'&body='+encodeURIComponent(msgBody);})()}"
+              class="btn btn-primary btn-sm" target="_blank" onclick="this.href='https://mail.google.com/mail/u/'+encodeURIComponent(localStorage.getItem('self_email')||'')+'/?view=cm&fs=1&to='+encodeURIComponent('${l.email}')+'&su='+encodeURIComponent(document.getElementById(\'subject-${idx}\').value||msgSubject)+'&body='+encodeURIComponent(document.getElementById(\'msg-${idx}\').textContent||msgBody)">✉ Open in Gmail</a>
+          ` : ''}
+          ${!method ? '<span style="font-size:12px;color:#6b7280;font-weight:500">← Choose a send method above first</span>' : ''}
+        </div>
+      </div>
+
+    </div>`;
+  }).join('');
+}
+
+function saveMsg(idx) {
+  if (!savedMsgs[idx]) savedMsgs[idx] = {};
+  const msgEl = document.getElementById('msg-'+idx);
+  const subEl = document.getElementById('subject-'+idx);
+  if (msgEl) savedMsgs[idx].body    = msgEl.textContent;
+  if (subEl) savedMsgs[idx].subject = subEl.value;
+}
+
+function setMethod(idx, method) {
+  leads[idx].outreachMethod = method;
+  const cb = document.querySelector('.lead-select-check[data-idx="'+idx+'"]');
+  if (method === 'email-bulk') {
+    if (cb) cb.checked = true;
+  } else {
+    if (cb) cb.checked = false;
+  }
+  updateBulkBar();
+  renderOutreach();
+}
+
+function pickPrompt(idx, goal) {
+  const lead = leads[idx];
+  const body    = fillPrompt(getPrompt(goal, 'body'), lead);
+  const subject = fillPrompt(getPrompt(goal, 'subject'), lead);
+  if (!savedMsgs[idx]) savedMsgs[idx] = {};
+  savedMsgs[idx].body    = body    || 'No prompt saved yet — go to Prompts to write one.';
+  savedMsgs[idx].subject = subject || '';
+  const msgEl = document.getElementById('msg-'+idx);
+  const subEl = document.getElementById('subject-'+idx);
+  if (msgEl) msgEl.textContent = savedMsgs[idx].body;
+  if (subEl) subEl.value       = savedMsgs[idx].subject;
+}
+
+function copyMsg(idx) {
+  const el = document.getElementById('msg-'+idx);
+  if (!el) return;
+  const method = leads[idx]?.outreachMethod || '';
+  const msg = method === 'sms' ? '✓ Message copied! Paste it into your SMS app.' : '✓ Message copied to clipboard!';
+  navigator.clipboard.writeText(el.textContent).then(() => alert(msg));
+}
+
+function markSent(idx) {
+  leads[idx].status = 'sent';
+  const now = new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+  inbox.unshift({ name: leads[idx].biz, msg: 'SMS sent manually', time: now, unread: true, ch: 'sms' });
+  renderAll();
+}
+
+async function sendEmailBrevo(idx) {
+  const s = getBrevoSettings();
+  if (!s.apiKey) {
+    if (confirm('Brevo is not configured. Go to Settings?')) {
+      go('settings', document.querySelector('.nav-item:last-child'));
+    }
+    return;
+  }
+  const lead = leads[idx];
+  const msgEl = document.getElementById('msg-'+idx);
+  const subEl = document.getElementById('subject-'+idx);
+  const message = msgEl ? msgEl.textContent : '';
+  const subject = subEl ? subEl.value : '';
+  if (!message.trim()) { alert('Please write a message first.'); return; }
+  try {
+    await brevoSend(lead.email, (lead.first+' '+lead.last).trim()||lead.biz, subject, message);
+    leads[idx].status = 'sent';
+
+    inbox.unshift({ name: lead.biz, msg: subject||message.substring(0,60), time: 'Just now', unread: false, ch: 'email' });
+    alert('✓ Email sent to '+lead.email);
+    renderAll();
+  } catch(e) { alert('Error: '+e.message); }
+}
+
+// ─── CAMPAIGNS ────────────────────────────────────────────
+function renderCampaigns() {
+  const el = document.getElementById('campList');
+  if (!el) return;
+  if (campaigns.length === 0) {
+    el.innerHTML = '<div class="empty-state"><div class="empty-state-icon">⚡</div><div class="empty-state-title">No campaigns yet</div><div class="empty-state-sub">Click + New Campaign to get started</div></div>';
+    return;
+  }
+  el.innerHTML = campaigns.map(c => `
+    <div class="campaign-row">
+      <div class="camp-icon ${c.type}">${c.type==='email'?'✉':c.type==='sms'?'📱':'⚡'}</div>
+      <div>
+        <div class="camp-name">${c.name}</div>
+        <div class="camp-meta">${c.leads} leads${c.scheduled?' · 🕐 '+c.scheduled:''}${c.sender?' · '+c.sender:''}</div>
+      </div>
+      <div class="camp-stats">
+        <div class="cs"><div class="cs-val">${c.sent}</div><div class="cs-label">Sent</div></div>
+        <div class="cs"><div class="cs-val">${c.replied}</div><div class="cs-label">Replies</div></div>
+      </div>
+      <div class="status-pip pip-${c.status}" style="margin:0 6px"></div>
+      <button class="btn btn-danger btn-sm" onclick="deleteCampaign(${c.id});event.stopPropagation()">✕</button>
+    </div>`).join('');
+}
+
+function createCampaign() {
+  const name = document.getElementById('cn-name').value || 'New Campaign';
+  const chBtn = document.querySelector('.ch-btn[class*="sel-"]');
+  const type = chBtn?(chBtn.classList.contains('sel-email')?'email':chBtn.classList.contains('sel-sms')?'sms':'both'):'email';
+  const targetType = document.getElementById('cn-target-type').value;
+  let targetLeads = [];
+  if (targetType==='individual') {
+    document.querySelectorAll('.lead-check:checked').forEach(cb => {
+      const l = leads.find(l => (l.email||l.phone)===cb.value);
+      if (l) targetLeads.push(l.email||l.phone);
+    });
+  } else if (targetType==='all-email') { targetLeads = leads.filter(l=>l.email).map(l=>l.email); }
+  else if (targetType==='all-sms') { targetLeads = leads.filter(l=>l.phone).map(l=>l.phone); }
+  else { targetLeads = leads.filter(l=>l.email||l.phone).map(l=>l.email||l.phone); }
+
+  const date = document.getElementById('cn-date').value;
+  const time = document.getElementById('cn-time').value;
+  campaigns.unshift({
+    id: Date.now(), name, type, status: (date&&time)?'scheduled':'active',
+    leads: targetLeads.length, sent: 0, replied: 0,
+    sender: document.getElementById('cn-sender').value,
+    scheduled: (date&&time)?date+' at '+time:null
+  });
+  close_modal('newCampaign');
+  document.getElementById('cn-name').value='';
+  renderAll();
+}
+
+function deleteCampaign(id) {
+  if (!confirm('Delete this campaign?')) return;
+  campaigns = campaigns.filter(c => c.id !== id);
+  renderAll();
+}
+
+function selCh(el, type) {
+  el.closest('.channel-btns').querySelectorAll('.ch-btn').forEach(b => b.className='ch-btn');
+  el.classList.add('sel-'+type);
+}
+
+// ─── EMAIL ────────────────────────────────────────────────
+// ─── BREVO API ────────────────────────────────────────────
+function getBrevoSettings() {
+  return JSON.parse(localStorage.getItem('brevo_settings') || '{}');
+}
+
+async function brevoSend(toEmail, toName, subject, message) {
+  const s = getBrevoSettings();
+  if (!s.apiKey) throw new Error('Brevo not configured');
+  const res = await fetch('https://api.brevo.com/v3/smtp/email', {
+    method: 'POST',
+    headers: {
+      'accept': 'application/json',
+      'api-key': s.apiKey,
+      'content-type': 'application/json'
+    },
+    body: JSON.stringify({
+      sender: { name: s.senderName || 'ReachBase', email: s.senderEmail },
+      to: [{ email: toEmail, name: toName || toEmail }],
+      subject: subject,
+      textContent: message,
+      htmlContent: '<p>'+message.replace(/\n/g,'<br>')+'</p>'
+    })
+  });
+  if (!res.ok) {
+    const err = await res.json();
+    throw new Error(err.message || 'Send failed');
+  }
+  return true;
+}
+
+function saveSelfEmail() {
+  const email = document.getElementById('self-email').value;
+  localStorage.setItem('self_email', email);
+  const el = document.getElementById('selfEmailStatus');
+  el.style.display = 'block';
+  setTimeout(() => el.style.display = 'none', 3000);
+}
+
+function saveEmailSettings() {
+  const s = {
+    apiKey: document.getElementById('brevo-apikey').value,
+    senderEmail: document.getElementById('brevo-email').value,
+    senderName: document.getElementById('brevo-name').value
+  };
+  localStorage.setItem('brevo_settings', JSON.stringify(s));
+  const el = document.getElementById('emailSettingsStatus');
+  el.style.display='block';
+  setTimeout(()=>el.style.display='none',3000);
+}
+
+async function testEmail() {
+  const s = getBrevoSettings();
+  if (!s.apiKey) { alert('Save your Brevo settings first.'); return; }
+  try {
+    await brevoSend(s.senderEmail, 'ReachBase Test', 'ReachBase Test Email', 'Your Brevo email sending is working correctly!');
+    alert('✓ Test email sent! Check your inbox.');
+  } catch(e) { alert('Error: '+e.message); }
+}
+
+async function sendComposedEmail() {
+  const s = getBrevoSettings();
+  if (!s.apiKey) { alert('Please configure Brevo in Settings first.'); return; }
+  try {
+    await brevoSend(
+      document.getElementById('compose-to').value, '',
+      document.getElementById('compose-subject').value,
+      document.getElementById('compose-body').value
+    );
+    alert('✓ Email sent!');
+    close_modal('compose');
+  } catch(e) { alert('Error: '+e.message); }
+}
+
+function loadSettings() {
+  try {
+    const s = getBrevoSettings();
+    const get = id => document.getElementById(id);
+    if (s.apiKey && get('brevo-apikey')) get('brevo-apikey').value = s.apiKey;
+    if (s.senderEmail && get('brevo-email')) get('brevo-email').value = s.senderEmail;
+    if (s.senderName && get('brevo-name')) get('brevo-name').value = s.senderName;
+    const selfEmail = localStorage.getItem('self_email');
+    if (selfEmail && get('self-email')) get('self-email').value = selfEmail;
+    loadPrompts();
+  } catch(e) { console.warn('loadSettings error:', e); }
+}
+
+// ─── BULK SELECT ──────────────────────────────────────────
+function handleLeadCheck(idx, checked) {
+  if (checked) {
+    leads[idx].outreachMethod = 'email-bulk';
+    renderOutreach();
+  }
+  // Whether checked or unchecked: keep method as email-bulk
+  // Bar visibility is driven by updateBulkBar counting checked boxes
+  updateBulkBar();
+}
+
+function toggleSelectAll(checked) {
+  document.querySelectorAll('.lead-select-check').forEach(cb => {
+    const idx = parseInt(cb.dataset.idx);
+    cb.checked = checked;
+    if (checked && leads[idx] && leads[idx].email) {
+      leads[idx].outreachMethod = 'email-bulk';
+    }
+    // Unchecking: keep method, just hide the bar
+  });
+  if (checked) renderOutreach(); // update method buttons if selecting all
+  updateBulkBar();
+}
+
+function updateBulkBar() {
+  const checkedBoxes = [...document.querySelectorAll('.lead-select-check:checked')];
+  const bulkLeads = leads.filter(l => l.outreachMethod === 'email-bulk');
+  const bar = document.getElementById('bulkBar');
+  if (!bar) return;
+
+  // Bar shows when any boxes are checked
+  bar.style.display = checkedBoxes.length > 0 ? 'flex' : 'none';
+
+  const countEl = document.getElementById('bulkCount');
+  if (countEl) countEl.textContent = bulkLeads.length + ' in bulk queue';
+
+  // selectAll: checked if all email leads have email-bulk method AND boxes checked
+  const emailLeads = leads.filter(l => l.email);
+  const sa = document.getElementById('selectAllOutreach');
+  if (sa) {
+    const allInBulk = emailLeads.length > 0 && emailLeads.every(l => l.outreachMethod === 'email-bulk');
+    sa.checked = allInBulk && checkedBoxes.length === document.querySelectorAll('.lead-select-check').length;
+    sa.indeterminate = bulkLeads.length > 0 && !sa.checked;
+  }
+
+  // Chips
+  const inner = document.getElementById('bulkLeadsInner');
+  if (inner) {
+    if (bulkLeads.length === 0) {
+      inner.innerHTML = '<span style="font-size:12px;color:#6b7280">No leads in bulk queue yet.</span>';
+    } else {
+      inner.innerHTML = bulkLeads.map(l => {
+        const i = leads.indexOf(l);
+        return '<span style="display:inline-flex;align-items:center;gap:6px;background:#1f2937;border:1px solid #374151;border-radius:20px;padding:4px 10px;font-size:12px;font-weight:600;color:#fff">'
+          + (l.biz||'Unknown')
+          + '<span onclick="removeFromBulk('+i+')" style="cursor:pointer;color:#9ca3af;font-size:14px;line-height:1">x</span></span>';
+      }).join('');
+    }
+  }
+}
+
+function toggleBulkDetails() {
+  const list = document.getElementById('bulkLeadsList');
+  const btn = document.getElementById('bulkToggleBtn');
+  const isHidden = list.style.display === 'none' || list.style.display === '';
+  list.style.display = isHidden ? 'block' : 'none';
+  btn.textContent = isHidden ? '▴ Hide Queue' : '▾ Show Queue';
+}
+
+function removeFromBulk(idx) {
+  if (leads[idx]) leads[idx].outreachMethod = '';
+  const cb = document.querySelector('.lead-select-check[data-idx="'+idx+'"]');
+  if (cb) cb.checked = false;
+  renderOutreach();
+  updateBulkBar();
+}
+
+function clearSelection() {
+  // Full clear: uncheck boxes AND clear bulk method
+  document.querySelectorAll('.lead-select-check').forEach(cb => {
+    const idx = parseInt(cb.dataset.idx);
+    cb.checked = false;
+    if (leads[idx] && leads[idx].outreachMethod === 'email-bulk') {
+      leads[idx].outreachMethod = '';
+    }
+  });
+  document.getElementById('bulkBar').style.display = 'none';
+  const sa = document.getElementById('selectAllOutreach');
+  if (sa) sa.checked = false;
+  renderOutreach();
+}
+
+function loadBulkPrompt(goal) {
+  if (!goal) return;
+  // Load a generic version (no lead-specific fill) so user can edit once for all
+  const p = JSON.parse(localStorage.getItem('rb_prompts') || '{}');
+  const g = goal === 'all-services' ? 'all' : goal;
+  const body = p[g+'-body'] || '';
+  const subject = p[g+'-subject'] || '';
+  document.getElementById('bulkSubject').value = subject;
+  document.getElementById('bulkBody').value = body;
+  document.getElementById('bulkEditWrap').style.display = 'flex';
+}
+
+function applyBulkPrompt() {
+  const bulkBody = document.getElementById('bulkBody').value;
+  const bulkSubject = document.getElementById('bulkSubject').value;
+  if (!bulkBody) { alert('Load a prompt template first or type a message in the bulk editor above.'); return; }
+  document.querySelectorAll('.lead-select-check:checked').forEach(cb => {
+    const idx = cb.dataset.idx;
+    const lead = leads[idx];
+    // Fill placeholders per lead
+    const body = fillPrompt(bulkBody, lead);
+    const subject = fillPrompt(bulkSubject, lead);
+    if (!savedMsgs[idx]) savedMsgs[idx] = {};
+    savedMsgs[idx].body = body;
+    savedMsgs[idx].subject = subject;
+    const msgEl = document.getElementById('msg-'+idx);
+    const subEl = document.getElementById('subject-'+idx);
+    if (msgEl) msgEl.textContent = body;
+    if (subEl) subEl.value = subject;
+  });
+}
+
+async function sendBulkEmail() {
+  const s = getBrevoSettings();
+  if (!s.apiKey) {
+    if (confirm('Brevo is not configured. Go to Settings?')) {
+      go('settings', document.querySelector('.nav-item:last-child'));
+    }
+    return;
+  }
+  const checked = [...document.querySelectorAll('.lead-select-check:checked')];
+  if (checked.length === 0) { alert('No leads selected.'); return; }
+
+  const emailLeads = checked.filter(cb => leads[cb.dataset.idx]?.email);
+  if (emailLeads.length === 0) { alert('None of the selected leads have an email address.'); return; }
+
+  if (!confirm(`Send email to ${emailLeads.length} leads?`)) return;
+
+  let sent = 0, failed = 0;
+  for (const cb of emailLeads) {
+    const idx = cb.dataset.idx;
+    const lead = leads[idx];
+    const saved = savedMsgs[idx] || {};
+    const message = saved.body || fillPrompt(getPrompt(lead.goal,'body'),lead);
+    const subject = saved.subject || fillPrompt(getPrompt(lead.goal,'subject'),lead);
+    if (!message.trim()) { failed++; continue; }
+    try {
+      await brevoSend(lead.email, (lead.first+' '+lead.last).trim()||lead.biz, subject, message);
+      leads[idx].status = 'sent';
+      inbox.unshift({ name: lead.biz, msg: subject||message.substring(0,60), time: 'Just now', unread: false, ch: 'email' });
+      sent++;
+    } catch(e) { failed++; }
+    await new Promise(r => setTimeout(r, 200)); // small delay between sends
+  }
+  alert('✓ Done! '+sent+' sent'+(failed?' · '+failed+' failed':''));
+  clearSelection();
+  renderAll();
+}
+
+// ─── AI ASSISTANT ─────────────────────────────────────────
+let aiHistory = [];
+
+function clearAIChat() {
+  aiHistory = [];
+  document.getElementById('aiMessages').innerHTML = '';
+}
+
+function renderAIMessage(role, text) {
+  const wrap = document.getElementById('aiMessages');
+  const isUser = role === 'user';
+  const div = document.createElement('div');
+  div.style.cssText = `display:flex;gap:10px;${isUser?'flex-direction:row-reverse':''}`;
+  div.innerHTML = `
+    <div style="width:32px;height:32px;border-radius:50%;background:${isUser?'#2563eb':'#111827'};display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;color:#fff;font-weight:700">
+      ${isUser?'You':'AI'}
+    </div>
+    <div style="max-width:75%;background:${isUser?'#eff6ff':'#f9fafb'};border:1px solid ${isUser?'#bfdbfe':'#e5e7eb'};border-radius:12px;padding:12px 16px;font-size:13px;line-height:1.7;color:#111827;white-space:pre-wrap">${text}</div>`;
+  wrap.appendChild(div);
+  wrap.scrollTop = wrap.scrollHeight;
+}
+
+async function sendAIMessage() {
+  const input = document.getElementById('aiInput');
+  const text = input.value.trim();
+  if (!text) return;
+
+  // Build context about current leads for the AI
+  const leadSummary = leads.length > 0
+    ? `The user has ${leads.length} leads in their pipeline. Categories: ${[...new Set(leads.map(l=>l.cat))].join(', ')}. Goals: ${[...new Set(leads.map(l=>l.goal).filter(Boolean))].join(', ')}.`
+    : 'No leads imported yet.';
+
+  renderAIMessage('user', text);
+  input.value = '';
+  input.style.height = '44px';
+  aiHistory.push({ role: 'user', content: text });
+
+  // Show typing indicator
+  const wrap = document.getElementById('aiMessages');
+  const typing = document.createElement('div');
+  typing.id = 'aiTyping';
+  typing.style.cssText = 'display:flex;gap:10px;align-items:center';
+  typing.innerHTML = `<div style="width:32px;height:32px;border-radius:50%;background:#111827;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;font-weight:700;flex-shrink:0">AI</div>
+    <div style="background:#f9fafb;border:1px solid #e5e7eb;border-radius:12px;padding:12px 16px;font-size:13px;color:#9ca3af">Thinking...</div>`;
+  wrap.appendChild(typing);
+  wrap.scrollTop = wrap.scrollHeight;
+
+  document.getElementById('aiSendBtn').disabled = true;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: `You are a helpful AI assistant built into ReachBase, an outreach platform for a done-for-you marketing agency targeting local service businesses (barbershops, restaurants, gyms, etc.). Services offered: cold email + SMS outreach, social media marketing, photo/video content, web design/hosting.
+
+Help the user with: writing cold email and SMS scripts, improving pitches, follow-up strategies, pricing their services, objection handling, and general outreach advice. Be concise, practical, and direct. 
+
+Current pipeline context: ${leadSummary}`,
+        messages: aiHistory
+      })
+    });
+    const data = await res.json();
+    const reply = data.content?.[0]?.text || 'Sorry, I had trouble responding. Try again.';
+    typing.remove();
+    renderAIMessage('assistant', reply);
+    aiHistory.push({ role: 'assistant', content: reply });
+  } catch(e) {
+    typing.remove();
+    renderAIMessage('assistant', 'Connection error. Make sure you are using this on Claude.ai where the API is available.');
+  }
+
+  document.getElementById('aiSendBtn').disabled = false;
+}
+
+</script>
+</body>
+</html>
